@@ -19,20 +19,12 @@ namespace log4cpp {
     _strSourceName(sourceName),
     _hEventSource(NULL)
     {
-        open();
+        reopen();
     }
 
     NTEventLogAppender::~NTEventLogAppender()
     {
         close();
-    }
-
-    void NTEventLogAppender::open()
-    {
-        if (_strSourceName.length()) {
-            addRegistryInfo(_strSourceName.c_str());
-            _hEventSource = ::RegisterEventSource(NULL, _strSourceName.c_str());
-        }
     }
 
     void NTEventLogAppender::close()
@@ -45,8 +37,13 @@ namespace log4cpp {
 
     bool NTEventLogAppender::reopen() {
         close();
-        open();
-        return true;
+
+        if (_strSourceName.length()) {
+            addRegistryInfo(_strSourceName.c_str());
+            _hEventSource = ::RegisterEventSource(NULL, _strSourceName.c_str());
+        }
+
+        return _hEventSource != NULL;
     }      
 
     bool NTEventLogAppender::requiresLayout() const {

@@ -61,10 +61,19 @@ namespace log4cpp {
         virtual ~NTEventLogAppender();
 
         /**
-         * Calls open() and close()
+         * Initializes the registry and starts logging to the source.
+         * <BR>
+         * If the appender is already open, it's closed first.
+         *
+         * @returns true if the operation was successful.
          **/
         virtual bool reopen();
 
+        /**
+          * Closes the appender if it's open.
+          * <BR>
+          * No action if the appender is already closed.
+          **/
         virtual void close();
 
         /**
@@ -84,7 +93,10 @@ namespace log4cpp {
         void regSetDword(HKEY hkey, TCHAR *name, DWORD value);
         void addRegistryInfo(const char *source);
 
-        virtual void open();
+        /**
+          * \deprecated This function is deprecated. Call reopen() instead.
+          */
+        virtual void open() { reopen(); }
 
         /**
          * Sends a LoggingEvent to NT Event log.
