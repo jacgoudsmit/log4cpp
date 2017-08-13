@@ -29,14 +29,17 @@ namespace log4cpp {
 
     void NTEventLogAppender::open()
     {
-        addRegistryInfo(_strSourceName.c_str());
-        _hEventSource = ::RegisterEventSource(NULL, _strSourceName.c_str());
+        if (_strSourceName.length()) {
+            addRegistryInfo(_strSourceName.c_str());
+            _hEventSource = ::RegisterEventSource(NULL, _strSourceName.c_str());
+        }
     }
 
     void NTEventLogAppender::close()
     {
         if (_hEventSource) {
             ::DeregisterEventSource(_hEventSource);
+            _hEventSource = NULL;
         }
     }
 
@@ -55,13 +58,15 @@ namespace log4cpp {
     }
 
     void NTEventLogAppender::_append(const LoggingEvent& event) {
-        const char* ps[1];
-        ps[0] = event.message.c_str();
+        if (_hEventSource) {
+            const char* ps[1];
+            ps[0] = event.message.c_str();
 
-        const DWORD messageID = 0x1000;
-        ::ReportEvent(_hEventSource, getType(event.priority), 
-                  getCategory(event.priority), 
-                  messageID, NULL, 1, 0, ps, NULL);
+            const DWORD messageID = 0x1000;
+            ::ReportEvent(_hEventSource, getType(event.priority), 
+                      getCategory(event.priority), 
+                      messageID, NULL, 1, 0, ps, NULL);
+        }
     }
 
     /**
