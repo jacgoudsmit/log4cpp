@@ -1,0 +1,7 @@
+# Visual Studio directories and files
+Debug/
+Release/
+*.user
+*.sdf
+*.opensdf
+*.suo
