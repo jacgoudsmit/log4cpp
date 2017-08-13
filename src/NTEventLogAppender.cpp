@@ -16,10 +16,26 @@ namespace log4cpp {
 
     NTEventLogAppender::NTEventLogAppender(const std::string& name, const std::string& sourceName) :
     AppenderSkeleton(name),
-    _strSourceName(sourceName),
+    _strSourceName(),
     _hEventSource(NULL)
     {
-        reopen();
+        reopen(sourceName, std::string());
+    }
+
+    NTEventLogAppender::NTEventLogAppender(const std::string &name, const std::string &sourceName, const std::string &dllLocation) :
+    AppenderSkeleton(name),
+    _strSourceName(),
+    _hEventSource(NULL)
+    {
+        reopen(sourceName, dllLocation);
+    }
+
+    NTEventLogAppender::NTEventLogAppender(const std::string &name) :
+    AppenderSkeleton(name),
+    _strSourceName(),
+    _hEventSource(NULL)
+    {
+        // Nothing to do here.
     }
 
     NTEventLogAppender::~NTEventLogAppender()
@@ -39,12 +55,37 @@ namespace log4cpp {
         close();
 
         if (_strSourceName.length()) {
-            addRegistryInfo(_strSourceName.c_str());
             _hEventSource = ::RegisterEventSource(NULL, _strSourceName.c_str());
         }
 
         return _hEventSource != NULL;
     }      
+
+    bool NTEventLogAppender::reopen(const std::string &sourceName, const std::string &dllLocation) {
+        close();
+
+        if ((_strSourceName = sourceName).length()) {
+            const TCHAR *prefix = "SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\";
+            DWORD disposition;
+            HKEY hkey = 0;
+            TCHAR subkey[256];
+
+            lstrcpy(subkey, prefix);
+            lstrcat(subkey, _strSourceName.c_str());
+            hkey = regGetKey(subkey, &disposition);
+            if (hkey) {
+                LPCSTR s = dllLocation.length() ? dllLocation.c_str() : "NTEventLogAppender.dll";
+                regSetString(hkey, "EventMessageFile", s);
+                regSetString(hkey, "CategoryMessageFile", s);
+                regSetDword(hkey, "TypesSupported", (DWORD)7);
+                regSetDword(hkey, "CategoryCount", (DWORD)8);
+
+                RegCloseKey(hkey);
+            }
+        }
+
+        return reopen();
+    }
 
     bool NTEventLogAppender::requiresLayout() const {
         return false;
@@ -107,42 +148,20 @@ namespace log4cpp {
         return ret_val;
     }
 
-    HKEY NTEventLogAppender::regGetKey(TCHAR *subkey, DWORD *disposition) {
+    HKEY NTEventLogAppender::regGetKey(LPCSTR subkey, LPDWORD pdisposition) {
         HKEY hkey = 0;
         RegCreateKeyEx(HKEY_LOCAL_MACHINE, subkey, 0, NULL, 
             REG_OPTION_NON_VOLATILE, KEY_SET_VALUE, NULL, 
-            &hkey, disposition);
+            &hkey, pdisposition);
         return hkey;
     }
 
-    void NTEventLogAppender::regSetString(HKEY hkey, TCHAR *name, TCHAR *value) {
+    void NTEventLogAppender::regSetString(HKEY hkey, LPCSTR name, LPCSTR value) {
         RegSetValueEx(hkey, name, 0, REG_SZ, (LPBYTE)value, lstrlen(value));
     }
 
-    void NTEventLogAppender::regSetDword(HKEY hkey, TCHAR *name, DWORD value) {
+    void NTEventLogAppender::regSetDword(HKEY hkey, LPCSTR name, DWORD value) {
         RegSetValueEx(hkey, name, 0, REG_DWORD, (LPBYTE)&value, sizeof(DWORD));
-    }
-
-    /*
-     * Add this source with appropriate configuration keys to the registry.
-     */
-    void NTEventLogAppender::addRegistryInfo(const char *source) {
-        const TCHAR *prefix = "SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\";
-        DWORD disposition;
-        HKEY hkey = 0;
-        TCHAR subkey[256];
-
-        lstrcpy(subkey, prefix);
-        lstrcat(subkey, source);
-        hkey = regGetKey(subkey, &disposition);
-        if (disposition == REG_CREATED_NEW_KEY) {
-            regSetString(hkey, "EventMessageFile", "NTEventLogAppender.dll");
-            regSetString(hkey, "CategoryMessageFile", "NTEventLogAppender.dll");
-            regSetDword(hkey, "TypesSupported", (DWORD)7);
-            regSetDword(hkey, "CategoryCount", (DWORD)8);
-        }
-        RegCloseKey(hkey);
-        return;
     }
 
     std::auto_ptr<Appender> create_nt_event_log_appender(const FactoryParams& params)
