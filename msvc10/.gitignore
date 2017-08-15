@@ -1,7 +1,10 @@
 # Visual Studio directories and files
 Debug/
+Debug with Boost/
 Release/
+Release with Boost/
 *.user
 *.sdf
 *.opensdf
 *.suo
+*.ipch
