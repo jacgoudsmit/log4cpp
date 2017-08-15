@@ -162,7 +162,12 @@
     <ClCompile Include="..\..\src\Category.cpp" />
     <ClCompile Include="..\..\src\CategoryStream.cpp" />
     <ClCompile Include="..\..\src\Configurator.cpp" />
-    <ClCompile Include="..\..\src\DummyThreads.cpp" />
+    <ClCompile Include="..\..\src\DummyThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\FactoryParams.cpp" />
     <ClCompile Include="..\..\src\FileAppender.cpp" />
     <ClCompile Include="..\..\src\Filter.cpp" />
@@ -177,7 +182,12 @@
     <ClCompile Include="..\..\src\MSThreads.cpp" />
     <ClCompile Include="..\..\src\NDC.cpp" />
     <ClCompile Include="..\..\src\NTEventLogAppender.cpp" />
-    <ClCompile Include="..\..\src\OmniThreads.cpp" />
+    <ClCompile Include="..\..\src\OmniThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\OstreamAppender.cpp" />
     <ClCompile Include="..\..\src\PassThroughLayout.cpp" />
     <ClCompile Include="..\..\src\PatternLayout.cpp" />
@@ -186,7 +196,12 @@
     <ClCompile Include="..\..\src\Properties.cpp" />
     <ClCompile Include="..\..\src\PropertyConfigurator.cpp" />
     <ClCompile Include="..\..\src\PropertyConfiguratorImpl.cpp" />
-    <ClCompile Include="..\..\src\PThreads.cpp" />
+    <ClCompile Include="..\..\src\PThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\RemoteSyslogAppender.cpp" />
     <ClCompile Include="..\..\src\RollingFileAppender.cpp" />
     <ClCompile Include="..\..\src\DailyRollingFileAppender.cpp" />

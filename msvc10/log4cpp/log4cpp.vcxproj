@@ -239,7 +239,12 @@ link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutD
     <ClCompile Include="..\..\src\Configurator.cpp" />
     <ClCompile Include="..\..\src\DailyRollingFileAppender.cpp" />
     <ClCompile Include="..\..\src\DllMain.cpp" />
-    <ClCompile Include="..\..\src\DummyThreads.cpp" />
+    <ClCompile Include="..\..\src\DummyThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\FactoryParams.cpp" />
     <ClCompile Include="..\..\src\FileAppender.cpp" />
     <ClCompile Include="..\..\src\Filter.cpp" />
@@ -255,7 +260,12 @@ link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutD
     <ClCompile Include="..\..\src\MSThreads.cpp" />
     <ClCompile Include="..\..\src\NDC.cpp" />
     <ClCompile Include="..\..\src\NTEventLogAppender.cpp" />
-    <ClCompile Include="..\..\src\OmniThreads.cpp" />
+    <ClCompile Include="..\..\src\OmniThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\OstreamAppender.cpp" />
     <ClCompile Include="..\..\src\PassThroughLayout.cpp" />
     <ClCompile Include="..\..\src\PatternLayout.cpp" />
@@ -264,13 +274,23 @@ link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutD
     <ClCompile Include="..\..\src\Properties.cpp" />
     <ClCompile Include="..\..\src\PropertyConfigurator.cpp" />
     <ClCompile Include="..\..\src\PropertyConfiguratorImpl.cpp" />
-    <ClCompile Include="..\..\src\PThreads.cpp" />
+    <ClCompile Include="..\..\src\PThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\RemoteSyslogAppender.cpp" />
     <ClCompile Include="..\..\src\RollingFileAppender.cpp" />
     <ClCompile Include="..\..\src\SimpleConfigurator.cpp" />
     <ClCompile Include="..\..\src\SimpleLayout.cpp" />
     <ClCompile Include="..\..\src\SmtpAppender.cpp" />
-    <ClCompile Include="..\..\src\snprintf.c" />
+    <ClCompile Include="..\..\src\snprintf.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\StringQueueAppender.cpp" />
     <ClCompile Include="..\..\src\StringUtil.cpp" />
     <ClCompile Include="..\..\src\SyslogAppender.cpp" />

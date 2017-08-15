@@ -157,10 +157,9 @@ typedef u_long in_addr_t;
 typedef int mode_t;
 #endif
 
-#if defined(_MSC_VER) && _MSC_VER == 1310
-// warning C4275: interface non dll class 'std::runtime_error' utilisée comme base 
-// d'une interface dll class 'log4cpp::ConfigureFailure'
-#pragma warning(disable: 4275)
+#if defined(_MSC_VER) && _MSC_VER >= 1310
+#pragma warning(disable: 4275) // non - DLL-interface class/struct 'identifier' used as base for DLL-interface class/struct 'identifier'
+#pragma warning(disable: 4996) // (various warnings about functions that are deprecated or regarded unsafe)
 #endif
 
 /* _INCLUDE_LOG4CPP_CONFIG_WIN32_H */

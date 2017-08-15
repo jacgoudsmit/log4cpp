@@ -284,7 +284,12 @@ link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutD
     <ClCompile Include="..\..\src\SimpleConfigurator.cpp" />
     <ClCompile Include="..\..\src\SimpleLayout.cpp" />
     <ClCompile Include="..\..\src\SmtpAppender.cpp" />
-    <ClCompile Include="..\..\src\snprintf.c" />
+    <ClCompile Include="..\..\src\snprintf.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\StringQueueAppender.cpp" />
     <ClCompile Include="..\..\src\StringUtil.cpp" />
     <ClCompile Include="..\..\src\SyslogAppender.cpp" />
