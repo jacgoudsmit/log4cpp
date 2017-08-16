@@ -1,6 +1,9 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cpp", "log4cpp\log4cpp.vcxproj", "{8C796FDD-5BB9-41D5-8471-DDC897C8C486}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73} = {D8278535-2911-4CD3-BEFE-A23EBFAFDD73}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testCategory", "testCategory\testCategory.vcxproj", "{BBD3200C-65F5-F4A4-2D69-7CE4FEBA616A}"
 EndProject
@@ -21,8 +24,16 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "testPropConfig", "testPropConfig\testPropConfig.vcxproj", "{B9B50B27-ECD2-064E-C392-419B371DA839}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cppLIB", "log4cppLIB\log4cppLIB.vcxproj", "{AFA856A0-2388-4673-9277-CE4061709569}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73} = {D8278535-2911-4CD3-BEFE-A23EBFAFDD73}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "log4cppRunnable", "log4cppRunnable\log4cppRunnable.vcxproj", "{8C796FDD-5BB9-41D5-8471-FFC897C8C486}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73} = {D8278535-2911-4CD3-BEFE-A23EBFAFDD73}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "NTEventLogAppender", "nteventlogappender\nteventlogappender.vcxproj", "{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -128,6 +139,14 @@ Global
 		{8C796FDD-5BB9-41D5-8471-FFC897C8C486}.Release with Boost|Win32.Build.0 = Release with Boost|Win32
 		{8C796FDD-5BB9-41D5-8471-FFC897C8C486}.Release|Win32.ActiveCfg = Release|Win32
 		{8C796FDD-5BB9-41D5-8471-FFC897C8C486}.Release|Win32.Build.0 = Release|Win32
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}.Debug with Boost|Win32.ActiveCfg = Debug|Win32
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}.Debug with Boost|Win32.Build.0 = Debug|Win32
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}.Debug|Win32.Build.0 = Debug|Win32
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}.Release with Boost|Win32.ActiveCfg = Release|Win32
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}.Release with Boost|Win32.Build.0 = Release|Win32
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}.Release|Win32.ActiveCfg = Release|Win32
+		{D8278535-2911-4CD3-BEFE-A23EBFAFDD73}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

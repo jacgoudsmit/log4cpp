@@ -266,32 +266,6 @@
     <None Include="..\..\include\log4cpp\TriggeringEventEvaluator.hh" />
     <None Include="..\..\include\log4cpp\TriggeringEventEvaluatorFactory.hh" />
     <None Include="..\..\include\log4cpp\Win32DebugAppender.hh" />
-    <CustomBuild Include="..\NTEventLogCategories.mc">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">if not exist $(OutDir) md $(OutDir)
-mc.exe -h $(OutDir) -r $(OutDir) $(ProjectDir)..\%(Filename).mc
-RC.exe -r -fo $(OutDir)%(Filename).res $(OutDir)%(Filename).rc
-link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutDir)%(Filename).res
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">if not exist $(OutDir) md $(OutDir)
-mc.exe -h $(OutDir) -r $(OutDir) $(ProjectDir)..\%(Filename).mc
-RC.exe -r -fo $(OutDir)%(Filename).res $(OutDir)%(Filename).rc
-link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutDir)%(Filename).res
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">if not exist $(OutDir) md $(OutDir)
-mc.exe -h $(OutDir) -r $(OutDir) $(ProjectDir)..\%(Filename).mc
-RC.exe -r -fo $(OutDir)%(Filename).res $(OutDir)%(Filename).rc
-link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutDir)%(Filename).res
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">if not exist $(OutDir) md $(OutDir)
-mc.exe -h $(OutDir) -r $(OutDir) $(ProjectDir)..\%(Filename).mc
-RC.exe -r -fo $(OutDir)%(Filename).res $(OutDir)%(Filename).rc
-link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutDir)%(Filename).res
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\include\log4cpp\config-win32.h" />
