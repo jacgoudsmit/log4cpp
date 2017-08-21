@@ -58,17 +58,8 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Debug\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Release\</IntDir>
-    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</LinkIncremental>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">$(Configuration)\</OutDir>
-    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">false</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
     <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'" />
@@ -86,47 +77,33 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)log4cpp.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>$(OutDir)log4cpp.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
-      <AdditionalIncludeDirectories>../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <RegisterOutput>false</RegisterOutput>
       <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <ImportLibrary>$(OutDir)log4cpp.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -138,18 +115,13 @@
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
     </ClCompile>
     <Link>
       <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <ProgramDatabaseFile>$(OutDir)log4cpp.pdb</ProgramDatabaseFile>
       <SubSystem>Windows</SubSystem>
-      <ImportLibrary>$(OutDir)log4cpp.lib</ImportLibrary>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -157,22 +129,18 @@
     <ClCompile>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_DLL;_USRDLL;LOG4CPP_HAS_DLL;LOG4CPP_BUILD_DLL;LOG4CPP_HAVE_BOOST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>
-      </DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <AdditionalIncludeDirectories>../../include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <RegisterOutput>false</RegisterOutput>
       <AdditionalDependencies>ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ShowProgress>NotSet</ShowProgress>
-      <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
-      <OptimizeReferences>true</OptimizeReferences>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <ImportLibrary>$(OutDir)log4cpp.lib</ImportLibrary>
+      <OptimizeReferences>false</OptimizeReferences>
+      <EnableCOMDATFolding>false</EnableCOMDATFolding>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
   </ItemDefinitionGroup>
@@ -209,32 +177,6 @@
     <None Include="..\..\include\log4cpp\Manipulator.hh" />
     <None Include="..\..\include\log4cpp\NDC.hh" />
     <None Include="..\..\include\log4cpp\NTEventLogAppender.hh" />
-    <CustomBuild Include="..\NTEventLogCategories.mc">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">"$(VS100COMNTOOLS)vsvars32.bat" if not exist $(OutDir) md $(OutDir)
-mc.exe -h "$(OutDir)" -r "$(OutDir)" "$(ProjectDir)..\%(Filename).mc"
-rc.exe -r -fo "$(OutDir)%(Filename).res" "$(OutDir)%(Filename).rc"
-link.exe /MACHINE:IX86 -dll -noentry -out:"$(OutDir)NTEventLogAppender.dll" "$(OutDir)%(Filename).res"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(VS100COMNTOOLS)vsvars32.bat" if not exist $(OutDir) md $(OutDir)
-mc.exe -h "$(OutDir)" -r "$(OutDir)" "$(ProjectDir)..\%(Filename).mc"
-rc.exe -r -fo "$(OutDir)%(Filename).res" "$(OutDir)%(Filename).rc"
-link.exe /MACHINE:IX86 -dll -noentry -out:"$(OutDir)NTEventLogAppender.dll" "$(OutDir)%(Filename).res"
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">"$(VS100COMNTOOLS)vsvars32.bat" if not exist $(OutDir) md $(OutDir)
-mc.exe -h $(OutDir) -r $(OutDir) $(ProjectDir)..\%(Filename).mc
-RC.exe -r -fo $(OutDir)%(Filename).res $(OutDir)%(Filename).rc
-link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutDir)%(Filename).res
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(VS100COMNTOOLS)vsvars32.bat" if not exist $(OutDir) md $(OutDir)
-mc.exe -h $(OutDir) -r $(OutDir) $(ProjectDir)..\%(Filename).mc
-RC.exe -r -fo $(OutDir)%(Filename).res $(OutDir)%(Filename).rc
-link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutDir)%(Filename).res
-</Command>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)NTEventLogAppender.dll;%(Outputs)</Outputs>
-    </CustomBuild>
     <None Include="..\..\include\log4cpp\OstreamAppender.hh" />
     <None Include="..\..\include\log4cpp\PassThroughLayout.hh" />
     <None Include="..\..\include\log4cpp\PatternLayout.hh" />
@@ -271,7 +213,12 @@ link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutD
     <ClCompile Include="..\..\src\Configurator.cpp" />
     <ClCompile Include="..\..\src\DailyRollingFileAppender.cpp" />
     <ClCompile Include="..\..\src\DllMain.cpp" />
-    <ClCompile Include="..\..\src\DummyThreads.cpp" />
+    <ClCompile Include="..\..\src\DummyThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\FactoryParams.cpp" />
     <ClCompile Include="..\..\src\FileAppender.cpp" />
     <ClCompile Include="..\..\src\Filter.cpp" />
@@ -287,7 +234,12 @@ link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutD
     <ClCompile Include="..\..\src\MSThreads.cpp" />
     <ClCompile Include="..\..\src\NDC.cpp" />
     <ClCompile Include="..\..\src\NTEventLogAppender.cpp" />
-    <ClCompile Include="..\..\src\OmniThreads.cpp" />
+    <ClCompile Include="..\..\src\OmniThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\OstreamAppender.cpp" />
     <ClCompile Include="..\..\src\PassThroughLayout.cpp" />
     <ClCompile Include="..\..\src\PatternLayout.cpp" />
@@ -296,13 +248,23 @@ link.exe /MACHINE:IX86 -dll -noentry -out:$(OutDir)NTEventLogAppender.dll $(OutD
     <ClCompile Include="..\..\src\Properties.cpp" />
     <ClCompile Include="..\..\src\PropertyConfigurator.cpp" />
     <ClCompile Include="..\..\src\PropertyConfiguratorImpl.cpp" />
-    <ClCompile Include="..\..\src\PThreads.cpp" />
+    <ClCompile Include="..\..\src\PThreads.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\RemoteSyslogAppender.cpp" />
     <ClCompile Include="..\..\src\RollingFileAppender.cpp" />
     <ClCompile Include="..\..\src\SimpleConfigurator.cpp" />
     <ClCompile Include="..\..\src\SimpleLayout.cpp" />
     <ClCompile Include="..\..\src\SmtpAppender.cpp" />
-    <ClCompile Include="..\..\src\snprintf.c" />
+    <ClCompile Include="..\..\src\snprintf.c">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release with Boost|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="..\..\src\StringQueueAppender.cpp" />
     <ClCompile Include="..\..\src\StringUtil.cpp" />
     <ClCompile Include="..\..\src\SyslogAppender.cpp" />

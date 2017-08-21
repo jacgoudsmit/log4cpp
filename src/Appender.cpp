@@ -29,6 +29,7 @@ namespace log4cpp {
 // MSVC's <crtdbg.h> requires redefinition of the new operator, but could not deal with placement new form of it
 #ifdef MSVC_MEMORY_LEAK_CHECK
 #pragma push_macro("new")
+#undef new
 #define new new
 #endif // MSVC_MEMORY_LEAK_CHECK
 			 new (&_appenderMapStorageInstance) AppenderMapStorage(); // placement new
