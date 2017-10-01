@@ -59,9 +59,14 @@ namespace log4cpp {
         /**
           * Constructor for backwards compatibility
           * <BR>
-          * If the source name is blank, the appender is created in closed
-          * state. In that case, reopen() must be called with parameters
-          * before logging will begin.
+          * The source name must be non-blank, otherwise the appender is
+          * created in closed state and cannot be opened. This is useful
+          * when creating a subclass.
+          * <BR>
+          * This constructor uses "NTEventLogAppender.dll" as dll location;
+          * this requires that that DLL be copied to a directory in the PATH
+          * environment variable. Use the other constructor to set a full
+          * location.
           *
           * @param name Name of the appender
           * @param sourceName Name (registry subkey name) to use as event logging source. Blank=don't open the appender
@@ -75,35 +80,19 @@ namespace log4cpp {
           * used.
           * <BR>
           * If the DLL location doesn't include a full path to the file, or
-          * if the location is blank, Windows will use the PATH environment
-          * variable to find the file. If the file cannot be found, Event
-          * Viewer will not format the events correctly.
+          * if the location parameter is blank, Windows will use the PATH
+          * environment variable to find the file. If the file cannot be
+          * found, Event Viewer will not format the events correctly.
           * <BR>
-          * If the source name is blank, the appender is created in closed
-          * state and the DLL location is ignored. In that case, reopen()
-          * must be called with parameters before logging will begin.
+          * The source name must be non-blank, otherwise the appender is
+          * created in closed state and cannot be opened. This is useful
+          * when creating a subclass.
           *
           * @param name Name of the appender
           * @param sourceName Name (registry subkey name) to use as event logging source. Blank=don't open the appender
           * @param dllLocation Location of the resource DLL. Blank="NTEventLogAppender.dll"
           */
         NTEventLogAppender(const std::string &name, const std::string &sourceName, const std::string &dllLocation);
-
-        /**
-          * Constructor that doesn't initialize the registry
-          * <BR>
-          * This constructor creates an instance in closed state. It's
-          * intended to be called by constructors of derived classes that
-          * want to call their own implementation of reopen() without
-          * calling the implementation in this class, which is what the
-          * other constructors may do.
-          * <BR>
-          * The reopen() function must be called with parameters before
-          * logging will begin.
-          *
-          * @param name Name of the appender
-          */
-        NTEventLogAppender::NTEventLogAppender(const std::string &name);
 
         virtual ~NTEventLogAppender();
 
@@ -112,37 +101,12 @@ namespace log4cpp {
          * <BR>
          * If the appender is already open, it's closed first.
          * <BR>
-         * If the registry hasn't been initialized, the operation fails. To
-         * initialize the registry, call the version of the function with
-         * parameters.
+         * If the source name was not set at construction time, the function
+         * fails.
          *
          * @returns true if the operation was successful.
          **/
         virtual bool reopen();
-
-        /**
-          * Registers the given source in the registry, with the given
-          * DLL file as resource DLL. Then starts logging to that source.
-          * <BR>
-          * If the appender is already open, it's closed first.
-          * <BR>
-          * The function uses the source name to create a key in the registry
-          * which is then used as source to log events. The name of the
-          * resource DLL is stored in the values under the key.
-          * <BR>
-          * If the source name is blank, the function fails. If the DLL
-          * location is blank, the function uses the default
-          * "NTEventLogAppender.dll".
-          * <BR>
-          * NOTE: if the DLL location doesn't include a full path (or if
-          * it's blank), Windows will attempt to find the DLL with the PATH
-          * environment variable.
-          *
-          * @param sourceName Registry subkey to use as source name. Blank=none
-          * @param dllLocation Location of the resource DLL. Blank="NTEventLogAppender.dll"
-          */
-        virtual bool reopen(const std::string &sourceName, const std::string &dllLocation);
-
 
         /**
           * Closes the appender if it's open.
@@ -153,6 +117,7 @@ namespace log4cpp {
 
         /**
          * The NTEventLogAppender does its own Layout.
+         *
          * @returns false
          **/
         virtual bool requiresLayout() const;
@@ -168,12 +133,33 @@ namespace log4cpp {
         void regSetDword(HKEY hkey, LPCSTR name, DWORD value);
 
         /**
-          * \deprecated This function is deprecated. Call reopen() with parameters instead.
+          * Register the appender in the registry using the current values
+          * of the member variables. This is called by the constructors,
+          * but can also be useful if you want to create a subclass. The
+          * function should be called before calling reopen(), otherwise
+          * the reopen() will fail.
+          * <BR>
+          * The function uses the source name to create a key in the registry
+          * which is then used as source to log events. The name of the
+          * resource DLL is stored in the values under the key.
+          * <BR>
+          * If the source name is blank, the function fails. If the DLL
+          * location is blank, the function uses the default
+          * "NTEventLogAppender.dll".
+          * <BR>
+          * NOTE: if the DLL location doesn't include a full path (or if
+          * it's blank), Windows will attempt to find the DLL with the PATH
+          * environment variable.
           */
-        void addRegistryInfo(LPCSTR source) { reopen(std::string(source), std::string()); }
+        virtual bool initRegistry();
 
         /**
-          * \deprecated This function is deprecated. Call reopen() without parameters instead.
+          * \deprecated This function is deprecated. Call initRegistry() instead.
+          */
+        void addRegistryInfo(LPCSTR source) { initRegistry(); }
+
+        /**
+          * \deprecated This function is deprecated. Call reopen() instead.
           */
         virtual void open() { reopen(); }
 
@@ -185,11 +171,12 @@ namespace log4cpp {
 
         HANDLE _hEventSource;
         std::string _strSourceName;
+        std::string _strDllLocation;
     };
 }
 
 #else // WIN32
-#error NTEventLoggAppender is not available on on Win32 platforms
+#error NTEventLoggAppender is not available on non-Win32 platforms
 #endif // WIN32
 
 #endif // _LOG4CPP_NTEVENTLOGAPPENDER_HH
