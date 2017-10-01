@@ -16,26 +16,24 @@ namespace log4cpp {
 
     NTEventLogAppender::NTEventLogAppender(const std::string& name, const std::string& sourceName) :
     AppenderSkeleton(name),
-    _strSourceName(),
+    _strSourceName(sourceName),
+    _strDllLocation(),
     _hEventSource(NULL)
     {
-        reopen(sourceName, std::string());
+        if (initRegistry()) {
+            reopen();
+        }
     }
 
     NTEventLogAppender::NTEventLogAppender(const std::string &name, const std::string &sourceName, const std::string &dllLocation) :
     AppenderSkeleton(name),
-    _strSourceName(),
+    _strSourceName(sourceName),
+    _strDllLocation(dllLocation),
     _hEventSource(NULL)
     {
-        reopen(sourceName, dllLocation);
-    }
-
-    NTEventLogAppender::NTEventLogAppender(const std::string &name) :
-    AppenderSkeleton(name),
-    _strSourceName(),
-    _hEventSource(NULL)
-    {
-        // Nothing to do here.
+        if (initRegistry()) {
+            reopen();
+        }
     }
 
     NTEventLogAppender::~NTEventLogAppender()
@@ -61,10 +59,10 @@ namespace log4cpp {
         return _hEventSource != NULL;
     }      
 
-    bool NTEventLogAppender::reopen(const std::string &sourceName, const std::string &dllLocation) {
-        close();
+    bool NTEventLogAppender::initRegistry() {
+        bool result = false;
 
-        if ((_strSourceName = sourceName).length()) {
+        if (_strSourceName.length()) {
             const TCHAR *prefix = "SYSTEM\\CurrentControlSet\\Services\\EventLog\\Application\\";
             DWORD disposition;
             HKEY hkey = 0;
@@ -74,17 +72,19 @@ namespace log4cpp {
             lstrcat(subkey, _strSourceName.c_str());
             hkey = regGetKey(subkey, &disposition);
             if (hkey) {
-                LPCSTR s = dllLocation.length() ? dllLocation.c_str() : "NTEventLogAppender.dll";
+                LPCSTR s = _strDllLocation.c_str();
                 regSetString(hkey, "EventMessageFile", s);
                 regSetString(hkey, "CategoryMessageFile", s);
                 regSetDword(hkey, "TypesSupported", (DWORD)7);
                 regSetDword(hkey, "CategoryCount", (DWORD)8);
 
                 RegCloseKey(hkey);
+
+                result = true;
             }
         }
 
-        return reopen();
+        return result;
     }
 
     bool NTEventLogAppender::requiresLayout() const {
